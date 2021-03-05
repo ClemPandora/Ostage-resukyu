@@ -1,1 +1,0 @@
-# Ostage-resukyu
