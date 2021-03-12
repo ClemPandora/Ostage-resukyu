@@ -491,7 +491,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 442901234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: -5.73, y: 1, z: 5.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -511,7 +511,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frameInterval: 3
   facePlayerFactor: 50
-  playerTest: {fileID: 704366097}
+  enemies:
+  - {fileID: 704366092}
+  - {fileID: 0}
   rangeRandPoint: 5
   isHiding: 0
   coverLayer:
@@ -520,6 +522,9 @@ MonoBehaviour:
   visibleLayer:
     serializedVersion: 2
     m_Bits: 55
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 512
   coverIsClose: 0
   coverNotReached: 1
   distToCoverPos: 1
@@ -671,9 +676,9 @@ GameObject:
   - component: {fileID: 704366093}
   - component: {fileID: 704366097}
   - component: {fileID: 704366098}
-  m_Layer: 0
-  m_Name: PlayerTest
-  m_TagString: Untagged
+  m_Layer: 9
+  m_Name: Enemy
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -747,7 +752,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 704366092}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 7.02}
+  m_LocalPosition: {x: -7.56, y: 1, z: 8.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
