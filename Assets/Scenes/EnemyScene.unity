@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionRange: 10
-  positionRange: 0
+  positionRange: 2
   nav: {fileID: 896358518}
   target: {fileID: 0}
   allyLayer:
