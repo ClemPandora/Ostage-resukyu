@@ -2,17 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionState : MonoBehaviour
+public class ActionState : State
 {
-    // Start is called before the first frame update
-    void Start()
+    public ActionState(EnemyAI ai) : base(ai)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -5,9 +5,13 @@ using UnityEngine.AI;
 public abstract class EnemyAI : MonoBehaviour
 {
     protected bool phase2;
+    public float detectionRange;
+    public float positionRange;
     [SerializeField]
     private NavMeshAgent nav;
-
+    public Transform target;
+    public LayerMask allyLayer;
+    public LayerMask coverLayer;
     private State _currentState;
 
     private void Start()
@@ -29,7 +33,36 @@ public abstract class EnemyAI : MonoBehaviour
         _currentState?.OnStateEnter();
     }
 
-    public void Move()
+    public virtual void Detect()
     {
+        foreach (var coll in Physics.OverlapSphere(transform.position, detectionRange, allyLayer))
+        {
+            if (!Physics.Linecast(transform.position, coll.transform.position, coverLayer))
+            {
+                target = coll.transform;
+                SetState(new MoveState(this));
+            }
+        }
+    }
+
+    public virtual void Move()
+    {
+        if (Vector3.Distance(transform.position, target.position) <= positionRange
+            && !Physics.Linecast(transform.position, target.position, coverLayer))
+        {
+            SetState(new ActionState(this));
+        }
+        else
+        {
+            nav.SetDestination(target.position);
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectionRange);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, positionRange);
     }
 }
