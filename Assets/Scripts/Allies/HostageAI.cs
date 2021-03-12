@@ -12,7 +12,7 @@ public class HostageAI : MonoBehaviour, Ally
    public int frameInterval = 10;
    public int facePlayerFactor = 50; //For facing the player/enemies
 
-   public PlayerTest playerTest;
+   public List<GameObject> enemies;
    
    //Take cover/hide
    private Vector3 _randomPosition;
@@ -24,6 +24,7 @@ public class HostageAI : MonoBehaviour, Ally
    public LayerMask coverLayer; //Set the layer that should be used as cover
    private Vector3 _coverObj; // To store the cover objects positions
    public LayerMask visibleLayer; // To declare objects on objects on layer that might obstruct the view betwen AI and player;
+   public LayerMask enemyLayer;
 
    private float _maxCovDist = 30f; // If distance to cover is greater than this, do something else
    public bool coverIsClose; // Is Cover in range ?
@@ -36,23 +37,27 @@ public class HostageAI : MonoBehaviour, Ally
    private bool _playerInRange;
 
    private int _testCoverPos = 15;
-
+   
    //bool to find positions behind cover 
    private bool RandomPoint(Vector3 center, float rangeOfRandPoint, out Vector3 resultCover)
    {
       for (int i = 0; i < _testCoverPos; i++)
       {
          _randomPosition = center + Random.insideUnitSphere * rangeOfRandPoint;
-         Vector3 direction = playerTest.playerPos - _randomPosition;
-         
-         RaycastHit hitTestCov;
-         
-         if (Physics.Raycast(_randomPosition, direction.normalized, out hitTestCov, rangeOfRandPoint, visibleLayer))
+        
+         for (int j = 0; j < enemies.Count; j++)
          {
-            if (hitTestCov.collider.gameObject.layer == coverLayer)
+            Vector3 direction = enemies[j].GetComponent<PlayerTest>().playerPos - _randomPosition;
+            
+            RaycastHit hitTestCov;
+         
+            if (Physics.Raycast(_randomPosition, direction.normalized, out hitTestCov, rangeOfRandPoint, visibleLayer))
             {
-               resultCover = _randomPosition;
-               return true;
+               if (hitTestCov.collider.gameObject.layer == coverLayer)
+               {
+                  resultCover = _randomPosition;
+                  return true;
+               }
             }
          }
       }
@@ -71,15 +76,18 @@ public class HostageAI : MonoBehaviour, Ally
       {
          if (Time.frameCount % frameInterval == 0) // to this only every few frames, no need to do it every frame
          {
-            float distance = (playerTest.playerPos - transform.position).sqrMagnitude; // check distance to player
-
-            if (distance < rangeDist)
+            for (int i = 0; i < enemies.Count; i++)
             {
-               _playerInRange = true;
-            }
-            else
-            {
-               _playerInRange = false;
+               float distance = (enemies[i].GetComponent<PlayerTest>().playerPos - transform.position).sqrMagnitude; // check distance to player
+               
+               if (distance < rangeDist)
+               {
+                  _playerInRange = true;
+               }
+               else
+               {
+                  _playerInRange = false;
+               }
             }
          }
 
@@ -91,8 +99,8 @@ public class HostageAI : MonoBehaviour, Ally
                
                if (coverNotReached)
                {
-                  _nav.SetDestination(_coverObj); // go the cover obj
-                  Debug.Log("Je pars me cacher");
+                  _nav.SetDestination(_coverObj - transform.forward); // go the cover obj
+                  FacePlayer();
                }
 
                if (!coverNotReached)
@@ -112,24 +120,36 @@ public class HostageAI : MonoBehaviour, Ally
 
    void FacePlayer()
    {
-      Vector3 direction = (playerTest.playerPos - transform.position).normalized;
+      Vector3 direction = (enemies[0].GetComponent<PlayerTest>().playerPos - transform.position).normalized;
+         
       Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
       transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * facePlayerFactor);
+      RaycastHit hit;
+         
+      if (Physics.Raycast(_randomPosition, direction.normalized, out hit, rangeRandPoint, enemyLayer))
+      {
+         if (hit.collider.gameObject.CompareTag("Player"))
+         {
+            Debug.DrawRay(transform.position, direction.normalized, Color.red, 200);
+            Debug.Log(hit.collider.gameObject.name);
+            CheckCoverDist();
+         }
+      }
    }
 
    void CheckCoverDist()
    {
       // Check if cover is in vicinity 
       Collider[] collides = Physics.OverlapSphere(transform.position, _maxCovDist, coverLayer);
+      
       float minSqrDistance = Mathf.Infinity;
 
       Vector3 aiPosition = transform.position;
-     
-      Debug.Log(collides.Length);
-      
+
       for (int i = 0; i < collides.Length; i++)
       {
          float sqrDistanceToCenter = (aiPosition - collides[i].transform.position).sqrMagnitude;
+
          if (sqrDistanceToCenter < minSqrDistance)
          {
             minSqrDistance = sqrDistanceToCenter;
@@ -142,6 +162,7 @@ public class HostageAI : MonoBehaviour, Ally
             {
                coverIsClose = true;
                _coverObj = nearestCollider.transform.position;
+               
                if (coverDistance <= distToCoverObj)
                {
                   coverNotReached = false;
@@ -172,6 +193,7 @@ public class HostageAI : MonoBehaviour, Ally
          if (_nav.isActiveAndEnabled)
          {
             _nav.SetDestination(_coverPoint);
+            
             if ((_coverPoint - transform.position).sqrMagnitude <= distToCoverPos)
             {
                isHiding = true;
