@@ -2,18 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Ally
+public class Player : MonoBehaviour, Ally
 {
     public Gun gun;
+
+    
     
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
+    {
+
+    }
+    
+    
+
+    void Movements()
     {
         
     }
