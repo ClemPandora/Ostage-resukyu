@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -37,6 +38,8 @@ public class HostageAI : MonoBehaviour, Ally
    private bool _playerInRange;
 
    private int _testCoverPos = 15;
+
+   private bool _enemyIsInMyVision;
    
    //bool to find positions behind cover 
    private bool RandomPoint(Vector3 center, float rangeOfRandPoint, out Vector3 resultCover)
@@ -121,7 +124,17 @@ public class HostageAI : MonoBehaviour, Ally
    void FacePlayer()
    {
       Vector3 direction = (enemies[0].GetComponent<PlayerTest>().playerPos - transform.position).normalized;
-         
+      
+     /* foreach (var enemy in enemies)
+      {
+         RaycastHit hits; 
+         if (Physics.Raycast(transform.position, enemy.transform.position, out hits, Mathf.Infinity, enemyLayer))
+         {
+            Debug.Log ($"I'm the otage and i see {hits.collider.gameObject.name}");
+            Debug.DrawLine(transform.position, enemy.transform.position * 50, Color.green, 20, true);
+         }
+      } */
+      
       Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
       transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * facePlayerFactor);
       RaycastHit hit;
@@ -130,11 +143,12 @@ public class HostageAI : MonoBehaviour, Ally
       {
          if (hit.collider.gameObject.CompareTag("Player"))
          {
+            _enemyIsInMyVision = true;
             Debug.DrawRay(transform.position, direction.normalized, Color.red, 200);
             Debug.Log(hit.collider.gameObject.name);
-            CheckCoverDist();
          }
       }
+      
    }
 
    void CheckCoverDist()
@@ -163,11 +177,11 @@ public class HostageAI : MonoBehaviour, Ally
                coverIsClose = true;
                _coverObj = nearestCollider.transform.position;
                
-               if (coverDistance <= distToCoverObj)
+               if (coverDistance <= distToCoverObj && _enemyIsInMyVision)
                {
                   coverNotReached = false;
                }
-               else if(coverDistance > distToCoverObj)
+               else if(coverDistance > distToCoverObj && !_enemyIsInMyVision)
                {
                   coverNotReached = true;
                }
