@@ -50,7 +50,7 @@ public class HostageAI : MonoBehaviour, Ally
         
          for (int j = 0; j < enemies.Count; j++)
          {
-            Vector3 direction = enemies[j].GetComponent<PlayerTest>().playerPos - _randomPosition;
+            Vector3 direction = enemies[j].transform.position - _randomPosition;
             
             RaycastHit hitTestCov;
          
@@ -81,7 +81,7 @@ public class HostageAI : MonoBehaviour, Ally
          {
             for (int i = 0; i < enemies.Count; i++)
             {
-               float distance = (enemies[i].GetComponent<PlayerTest>().playerPos - transform.position).sqrMagnitude; // check distance to player
+               float distance = (enemies[i].transform.position - transform.position).sqrMagnitude; // check distance to player
                
                if (distance < rangeDist)
                {
@@ -123,7 +123,7 @@ public class HostageAI : MonoBehaviour, Ally
 
    void FacePlayer()
    {
-      Vector3 direction = (enemies[0].GetComponent<PlayerTest>().playerPos - transform.position).normalized;
+      Vector3 direction = (enemies[0].transform.position - transform.position).normalized;
       
      /* foreach (var enemy in enemies)
       {
@@ -133,8 +133,8 @@ public class HostageAI : MonoBehaviour, Ally
             Debug.Log ($"I'm the otage and i see {hits.collider.gameObject.name}");
             Debug.DrawLine(transform.position, enemy.transform.position * 50, Color.green, 20, true);
          }
-      } */
-      
+      } 
+      */
       Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
       transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * facePlayerFactor);
       RaycastHit hit;
