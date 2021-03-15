@@ -11,7 +11,7 @@ public class HostageAI : MonoBehaviour, Ally
 {
    private NavMeshAgent _nav;
    public int frameInterval = 10;
-   public int facePlayerFactor = 50; //For facing the player/enemies
+   public int faceEnemyFactor = 50; //For facing the player/enemies
 
    public List<GameObject> enemies;
    
@@ -20,7 +20,7 @@ public class HostageAI : MonoBehaviour, Ally
    private Vector3 _coverPoint;
    public float rangeRandPoint = 6f;
    public bool isHiding;
-   
+   public int detectionRange;
    //Go To Cover
    public LayerMask coverLayer; //Set the layer that should be used as cover
    private Vector3 _coverObj; // To store the cover objects positions
@@ -40,7 +40,8 @@ public class HostageAI : MonoBehaviour, Ally
    private int _testCoverPos = 15;
 
    private bool _enemyIsInMyVision;
-   
+
+   private Transform _target;
    //bool to find positions behind cover 
    private bool RandomPoint(Vector3 center, float rangeOfRandPoint, out Vector3 resultCover)
    {
@@ -103,13 +104,13 @@ public class HostageAI : MonoBehaviour, Ally
                if (coverNotReached)
                {
                   _nav.SetDestination(_coverObj - transform.forward); // go the cover obj
-                  FacePlayer();
+                  FaceEnemy();
                }
 
                if (!coverNotReached)
                {
                   TakeCover();
-                  FacePlayer();
+                  FaceEnemy();
                }
             }
 
@@ -121,34 +122,30 @@ public class HostageAI : MonoBehaviour, Ally
       }
    }
 
-   void FacePlayer()
+   void FaceEnemy()
    {
-      Vector3 direction = (enemies[0].transform.position - transform.position).normalized;
-      
-     /* foreach (var enemy in enemies)
-      {
-         RaycastHit hits; 
-         if (Physics.Raycast(transform.position, enemy.transform.position, out hits, Mathf.Infinity, enemyLayer))
-         {
-            Debug.Log ($"I'm the otage and i see {hits.collider.gameObject.name}");
-            Debug.DrawLine(transform.position, enemy.transform.position * 50, Color.green, 20, true);
-         }
-      } 
-      */
-      Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-      transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * facePlayerFactor);
-      RaycastHit hit;
-         
-      if (Physics.Raycast(_randomPosition, direction.normalized, out hit, rangeRandPoint, enemyLayer))
-      {
-         if (hit.collider.gameObject.CompareTag("Player"))
-         {
-            _enemyIsInMyVision = true;
-            Debug.DrawRay(transform.position, direction.normalized, Color.red, 200);
-            Debug.Log(hit.collider.gameObject.name);
+      var closestDistance = (enemies[0].transform.position - transform.position).sqrMagnitude;
+      var targetNumber = 0;
+      for (int i = 1; i < enemies.Count; i++) {
+         var thisDistance = (enemies[i].transform.position - transform.position).sqrMagnitude;
+         if (thisDistance < closestDistance) {
+            closestDistance = thisDistance;
+            targetNumber = i;
          }
       }
       
+      Vector3 direction = (enemies[targetNumber].transform.position - transform.position).normalized;
+        
+      Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        
+      transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * faceEnemyFactor);
+   }
+
+   private void OnDrawGizmos()
+   {
+      //Vector3 direction = (enemies[0].transform.position - transform.position).normalized;
+      
+      //Debug.DrawRay(transform.position, direction.normalized * rangeRandPoint, Color.red, 2);
    }
 
    void CheckCoverDist()
