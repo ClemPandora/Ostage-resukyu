@@ -59,11 +59,11 @@ public class HostageAI : MonoBehaviour, Ally
          {
             Vector3 direction = enemies[j].transform.position - _randomPosition;
             
-            RaycastHit hitTestCov;
+            RaycastHit hitCov;
          
-            if (Physics.Raycast(_randomPosition, direction.normalized, out hitTestCov, rangeOfRandPoint, visibleLayer))
+            if (Physics.Raycast(_randomPosition, direction.normalized, out hitCov, rangeOfRandPoint, visibleLayer))
             {
-               if (hitTestCov.collider.gameObject.layer == coverLayer) // If the object is a cover object, the hostage can be hide
+               if (hitCov.collider.gameObject.layer == coverLayer) // If the object is a cover object, the hostage can be hide
                {
                   resultCover = _randomPosition;
                   return true;
