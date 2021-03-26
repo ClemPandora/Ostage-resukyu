@@ -9,7 +9,7 @@ public class MeleeEnemy : EnemyAI
     public override void Action()
     {
         if (Vector3.Distance(transform.position, target.position) > positionRange
-            || Physics.Linecast(transform.position, target.position, coverLayer))
+            || Physics.SphereCast(new Ray(transform.position, target.position - transform.position), 1f, Vector3.Distance(target.position, transform.position), coverLayer))
         {
             SetState(new MoveState(this));
         }
