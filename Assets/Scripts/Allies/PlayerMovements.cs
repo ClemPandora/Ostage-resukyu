@@ -51,10 +51,6 @@ public class PlayerMovements : MonoBehaviour
         Vector2 inputs;
         inputs.x = Input.GetAxis("Horizontal");
         inputs.y = Input.GetAxis("Vertical");
-
-        float x;
-        float z;
-        
         
         if (isGrounded)
         {
