@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class LiberateHostage : MonoBehaviour
 {
-	public HostageAI hostage;
+	public HostageFollowPlayer hostage;
 
 	private void OnTriggerEnter(Collider other)
 	{
@@ -17,7 +17,7 @@ public class LiberateHostage : MonoBehaviour
 		 }*/
 		if (other.gameObject.CompareTag("Player"))
 		{
-			hostage.GetComponent<HostageAI>().enabled = true;
+			hostage.enabled = true;
 			hostage.transform.SetParent(null);
 		}
 	}

@@ -21,8 +21,7 @@ public class HostageAI : MonoBehaviour
    //Go To Cover
    public LayerMask coverLayer; //Set the layer that should be used as cover
    public LayerMask visibleLayer; // To declare objects on objects on layer that might obstruct the view betwen AI and player;
-   public LayerMask playerLayer; // A layer for the player
-   
+
    [Header("IsCovered")]
    public bool coverIsClose; // Is Cover in range ?
    public bool coverNotReached = true; // If true, Ai is not close enough to the cover object
@@ -33,11 +32,7 @@ public class HostageAI : MonoBehaviour
    public float distToCoverObj;
    public float rangeRandPoint;
    public float rangeDist;
-   public int detectionRangePlayer;
-   
-   [Header("Player")] 
-   public Transform targetPlayer;
-   
+
    private bool _enemyInRange;
    private bool _enemyIsInMyVision;
    
@@ -96,20 +91,6 @@ public class HostageAI : MonoBehaviour
                if (distance < rangeDist)
                {
                   _enemyInRange = true;
-                  Debug.Log("In range");
-               }
-               else if (distance > rangeDist)
-               {
-                 /* _nav.SetDestination(targetPlayer.position); // Hostage go to the player 
-                  foreach (var coll in Physics.OverlapSphere(transform.position, detectionRangePlayer, playerLayer))
-                  {
-                     if (coll.gameObject.CompareTag("Player"))
-                     {
-                        _nav.SetDestination(Vector3.zero);
-                     }
-                  }*/
-                  //_enemyInRange = false;
-                  Debug.Log("Not in range");
                }
             }
          }
@@ -135,14 +116,6 @@ public class HostageAI : MonoBehaviour
       }
    }
 
-  /* private void OnDrawGizmos()
-   {
-      Gizmos.color = Color.red;
-      Gizmos.DrawWireSphere(transform.position, detectionRangePlayer);
-   }
-*/
-   
-  
    void FaceEnemy() // Look the enemy, he looks the nearest enemy
    {
       var closestDistance = (enemies[0].transform.position - transform.position).sqrMagnitude;
