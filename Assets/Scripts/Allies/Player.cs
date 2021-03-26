@@ -1,22 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour, Ally
 {
-    public Gun gun;
+    //public Gun gun;
 
+    public float health;
+    public float maxHealth;
+    public Slider healthBar;
     
-    
-    // Start is called before the first frame update
     void Start()
     {
+        health = maxHealth;
+        healthBar.maxValue = maxHealth;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
+        if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
 
+        healthBar.value = health;
     }
 
     public void Damage(int dmg)
