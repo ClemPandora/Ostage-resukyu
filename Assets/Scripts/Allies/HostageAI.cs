@@ -8,7 +8,7 @@ using UnityEngine.Rendering.UI;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class HostageAI : MonoBehaviour, Ally
+public class HostageAI : MonoBehaviour
 {
    [Header("FaceEnemy")]
    public int frameInterval;

@@ -18,8 +18,12 @@ public class Player : MonoBehaviour, Ally
     {
 
     }
-    
-    
+
+    public void Damage(int dmg)
+    {
+        //TODO
+    }
+
 
     void Movements()
     {
