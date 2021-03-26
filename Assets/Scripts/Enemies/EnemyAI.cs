@@ -40,7 +40,7 @@ public abstract class EnemyAI : MonoBehaviour
     {
         foreach (var coll in Physics.OverlapSphere(transform.position, detectionRange, allyLayer))
         {
-            if (!Physics.Linecast(transform.position, coll.transform.position, coverLayer))
+            if (!Physics.SphereCast(new Ray(transform.position, coll.transform.position - transform.position), 1f, Vector3.Distance(coll.transform.position, transform.position), coverLayer))
             {
                 target = coll.transform;
                 SetState(new MoveState(this));
@@ -51,7 +51,7 @@ public abstract class EnemyAI : MonoBehaviour
     public virtual void Move()
     {
         if (Vector3.Distance(transform.position, target.position) <= positionRange
-            && !Physics.Linecast(transform.position, target.position, coverLayer))
+            && !Physics.SphereCast(new Ray(transform.position, target.position - transform.position), 1f, Vector3.Distance(target.position, transform.position), coverLayer))
         {
             nav.SetDestination(transform.position);
             SetState(new ActionState(this));
