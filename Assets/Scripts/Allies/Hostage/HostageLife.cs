@@ -8,6 +8,7 @@ public class HostageLife : MonoBehaviour, Ally
     public int life, waitForSeconds;
     public HostageAI hostageAi;
     public HostageFollowPlayer hostageFollowPlayer;
+    public GameObject panelDead;
     
     public void Damage(int dmg)
     {
@@ -21,10 +22,11 @@ public class HostageLife : MonoBehaviour, Ally
     {
         if (life <= 0)
         {
-            //TODO the death of hostage
+            panelDead.SetActive(true);
+            Time.timeScale = 0f;
         }
 
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             Damage(1);
         }

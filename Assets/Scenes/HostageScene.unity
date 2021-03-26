@@ -121,6 +121,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 4fcadd408f38dcd4a98566c283a2894f, type: 2}
+--- !u!1 &2120732 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5062055762823841603, guid: fca55fdd8db70044a9887ced3d20dc41,
+    type: 3}
+  m_PrefabInstance: {fileID: 762182035798017724}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &67998200
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,7 +952,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 442901234}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b038306c0cf895439cc66c23b71954c, type: 3}
   m_Name: 
@@ -1023,6 +1029,7 @@ MonoBehaviour:
   waitForSeconds: 8
   hostageAi: {fileID: 442901239}
   hostageFollowPlayer: {fileID: 442901243}
+  panelDead: {fileID: 2120732}
 --- !u!114 &442901243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2744,7 +2751,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1717956783}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.11, y: 5.24, z: 0.47}
+  m_LocalPosition: {x: -17.2, y: 5.24, z: 1.2}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 442901238}
@@ -3258,7 +3265,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1991088734}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.52, y: 1, z: -7.23}
+  m_LocalPosition: {x: -22.4, y: 1, z: 9.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
