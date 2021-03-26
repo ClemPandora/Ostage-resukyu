@@ -9,43 +9,49 @@ using Random = UnityEngine.Random;
 
 public class HostageAI : MonoBehaviour, Ally
 {
-   private NavMeshAgent _nav;
-   public int frameInterval = 10;
-   public int faceEnemyFactor = 50; //For facing the player/enemies
-
-   public List<GameObject> enemies;
+   [Header("FaceEnemy")]
+   public int frameInterval;
+   public int faceEnemyFactor; //For facing the player/enemies
    
-   //Take cover/hide
-   private Vector3 _randomPosition;
-   private Vector3 _coverPoint;
-   public float rangeRandPoint = 6f;
-   public bool isHiding;
-   public int detectionRange;
+   [Header("Enemies")]
+   public List<GameObject> enemies;
+
+   [Header("Layer")]
    //Go To Cover
    public LayerMask coverLayer; //Set the layer that should be used as cover
-   private Vector3 _coverObj; // To store the cover objects positions
    public LayerMask visibleLayer; // To declare objects on objects on layer that might obstruct the view betwen AI and player;
-   public LayerMask enemyLayer;
-
-   private float _maxCovDist = 30f; // If distance to cover is greater than this, do something else
+   
+   [Header("IsCovered")]
    public bool coverIsClose; // Is Cover in range ?
    public bool coverNotReached = true; // If true, Ai is not close enough to the cover object
+   public bool isHiding;
+   
+   [Header("Distance")]
+   public float distToCoverPos;
+   public float distToCoverObj;
+   public float rangeRandPoint;
+   public float rangeDist;
 
-   public float distToCoverPos = 1f;
-   public float distToCoverObj = 20f;
-
-   public float rangeDist = 15f;
-   private bool _playerInRange;
-
-   private int _testCoverPos = 15;
-
+   [Header("Player")] 
+   public Transform targetPlayer;
+   
+   private bool _enemyInRange;
    private bool _enemyIsInMyVision;
-
-   private Transform _target;
+   
+   private int _coverPos = 15;
+   
+   private Vector3 _coverObj; // To store the cover objects positions
+   private Vector3 _randomPosition; // Take cover/hide
+   private Vector3 _coverPoint;
+   
+   private float _maxCovDist = 30f; // If distance to cover is greater than this, do something else
+   
+   private NavMeshAgent _nav;
+   
    //bool to find positions behind cover 
-   private bool RandomPoint(Vector3 center, float rangeOfRandPoint, out Vector3 resultCover)
+   private bool RandomPoint(Vector3 center, float rangeOfRandPoint, out Vector3 resultCover) // Find a random point behind an object 
    {
-      for (int i = 0; i < _testCoverPos; i++)
+      for (int i = 0; i < _coverPos; i++)
       {
          _randomPosition = center + Random.insideUnitSphere * rangeOfRandPoint;
         
@@ -57,7 +63,7 @@ public class HostageAI : MonoBehaviour, Ally
          
             if (Physics.Raycast(_randomPosition, direction.normalized, out hitTestCov, rangeOfRandPoint, visibleLayer))
             {
-               if (hitTestCov.collider.gameObject.layer == coverLayer)
+               if (hitTestCov.collider.gameObject.layer == coverLayer) // If the object is a cover object, the hostage can be hide
                {
                   resultCover = _randomPosition;
                   return true;
@@ -86,49 +92,46 @@ public class HostageAI : MonoBehaviour, Ally
                
                if (distance < rangeDist)
                {
-                  _playerInRange = true;
+                  _enemyInRange = true;
                }
-               else
+               else 
                {
-                  _playerInRange = false;
+                  _nav.SetDestination(targetPlayer.position); // Hostage go to the player 
+                  _enemyInRange = false;
                }
             }
          }
 
-         if (_playerInRange)
+         if (_enemyInRange)
          {
             CheckCoverDist(); // Check if cover is close enough
             if (coverIsClose)
             {
-               
                if (coverNotReached)
                {
                   _nav.SetDestination(_coverObj - transform.forward); // go the cover obj
                   FaceEnemy();
                }
-
-               if (!coverNotReached)
+               else if (!coverNotReached)
                {
                   TakeCover();
                   FaceEnemy();
                }
             }
-
-            if (!coverIsClose)
-            {
-               //Todo si l'obj est loin
-            }
          }
       }
    }
 
-   void FaceEnemy()
+   void FaceEnemy() // Look the enemy, he looks the nearest enemy
    {
       var closestDistance = (enemies[0].transform.position - transform.position).sqrMagnitude;
       var targetNumber = 0;
-      for (int i = 1; i < enemies.Count; i++) {
+      for (int i = 1; i < enemies.Count; i++) // Check the nearest enemy in the list
+      {
          var thisDistance = (enemies[i].transform.position - transform.position).sqrMagnitude;
-         if (thisDistance < closestDistance) {
+         
+         if (thisDistance < closestDistance) 
+         {
             closestDistance = thisDistance;
             targetNumber = i;
          }
@@ -136,16 +139,9 @@ public class HostageAI : MonoBehaviour, Ally
       
       Vector3 direction = (enemies[targetNumber].transform.position - transform.position).normalized;
         
-      Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+      Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z)); // Look in the direction of the nearest enemy
         
       transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * faceEnemyFactor);
-   }
-
-   private void OnDrawGizmos()
-   {
-      //Vector3 direction = (enemies[0].transform.position - transform.position).normalized;
-      
-      //Debug.DrawRay(transform.position, direction.normalized * rangeRandPoint, Color.red, 2);
    }
 
    void CheckCoverDist()
@@ -178,7 +174,7 @@ public class HostageAI : MonoBehaviour, Ally
                {
                   coverNotReached = false;
                }
-               else if(coverDistance > distToCoverObj && !_enemyIsInMyVision)
+               else if(coverDistance > distToCoverObj && !_enemyIsInMyVision) // For the hostage to replace himself in an update method
                {
                   coverNotReached = true;
                }
@@ -197,13 +193,13 @@ public class HostageAI : MonoBehaviour, Ally
       }
    }
 
-   void TakeCover()
+   void TakeCover() // Hostage take cover
    {
       if (RandomPoint(transform.position, rangeRandPoint, out _coverPoint))
       {
          if (_nav.isActiveAndEnabled)
          {
-            _nav.SetDestination(_coverPoint);
+            _nav.SetDestination(_coverPoint); // Hostage go to the cover point
             
             if ((_coverPoint - transform.position).sqrMagnitude <= distToCoverPos)
             {
