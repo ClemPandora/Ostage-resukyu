@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering.UI;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -20,6 +21,7 @@ public class HostageAI : MonoBehaviour, Ally
    //Go To Cover
    public LayerMask coverLayer; //Set the layer that should be used as cover
    public LayerMask visibleLayer; // To declare objects on objects on layer that might obstruct the view betwen AI and player;
+   public LayerMask playerLayer; // A layer for the player
    
    [Header("IsCovered")]
    public bool coverIsClose; // Is Cover in range ?
@@ -31,7 +33,8 @@ public class HostageAI : MonoBehaviour, Ally
    public float distToCoverObj;
    public float rangeRandPoint;
    public float rangeDist;
-
+   public int detectionRangePlayer;
+   
    [Header("Player")] 
    public Transform targetPlayer;
    
@@ -44,7 +47,7 @@ public class HostageAI : MonoBehaviour, Ally
    private Vector3 _randomPosition; // Take cover/hide
    private Vector3 _coverPoint;
    
-   private float _maxCovDist = 30f; // If distance to cover is greater than this, do something else
+   private float _maxCovDist = 30f; 
    
    private NavMeshAgent _nav;
    
@@ -93,11 +96,20 @@ public class HostageAI : MonoBehaviour, Ally
                if (distance < rangeDist)
                {
                   _enemyInRange = true;
+                  Debug.Log("In range");
                }
-               else 
+               else if (distance > rangeDist)
                {
-                  _nav.SetDestination(targetPlayer.position); // Hostage go to the player 
-                  _enemyInRange = false;
+                 /* _nav.SetDestination(targetPlayer.position); // Hostage go to the player 
+                  foreach (var coll in Physics.OverlapSphere(transform.position, detectionRangePlayer, playerLayer))
+                  {
+                     if (coll.gameObject.CompareTag("Player"))
+                     {
+                        _nav.SetDestination(Vector3.zero);
+                     }
+                  }*/
+                  //_enemyInRange = false;
+                  Debug.Log("Not in range");
                }
             }
          }
@@ -105,6 +117,7 @@ public class HostageAI : MonoBehaviour, Ally
          if (_enemyInRange)
          {
             CheckCoverDist(); // Check if cover is close enough
+            
             if (coverIsClose)
             {
                if (coverNotReached)
@@ -122,6 +135,14 @@ public class HostageAI : MonoBehaviour, Ally
       }
    }
 
+  /* private void OnDrawGizmos()
+   {
+      Gizmos.color = Color.red;
+      Gizmos.DrawWireSphere(transform.position, detectionRangePlayer);
+   }
+*/
+   
+  
    void FaceEnemy() // Look the enemy, he looks the nearest enemy
    {
       var closestDistance = (enemies[0].transform.position - transform.position).sqrMagnitude;
