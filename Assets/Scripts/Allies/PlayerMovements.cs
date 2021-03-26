@@ -23,9 +23,6 @@ public class PlayerMovements : MonoBehaviour
     public Vector3 velocity;
     private bool isGrounded;
     
-    private float x;
-    private float z;
-    
     public Transform playerBody;
     public Camera camera;
 
@@ -50,24 +47,29 @@ public class PlayerMovements : MonoBehaviour
         {
             velocity.y = -2f;
         }
+
+        Vector2 inputs;
+        inputs.x = Input.GetAxis("Horizontal");
+        inputs.y = Input.GetAxis("Vertical");
+
+        float x;
+        float z;
         
-        x = Input.GetAxis("Horizontal");
-        z = Input.GetAxis("Vertical");
         
         if (isGrounded)
         {
-            if (x < -0.1 || x > 0.1)
+            if (inputs.x < -0.1 || inputs.x > 0.1)
             {
-                velocity.x = Mathf.Lerp(velocity.x, x, Time.deltaTime * acceleration);
+                velocity.x = Mathf.Lerp(velocity.x, inputs.x, Time.deltaTime * acceleration);
             }
             else
             {
                 velocity.x = Mathf.Lerp(velocity.x, 0, Time.deltaTime * acceleration);
             }
             
-            if (z < -0.1 || z > 0.1)
+            if (inputs.y < -0.1 || inputs.y > 0.1)
             {
-                velocity.z = Mathf.Lerp(velocity.z, z, Time.deltaTime * acceleration);
+                velocity.z = Mathf.Lerp(velocity.z, inputs.y, Time.deltaTime * acceleration);
             }
             else
             {
@@ -76,16 +78,18 @@ public class PlayerMovements : MonoBehaviour
         }
         else
         {
-            if (x < -0.1 || x > 0.1)
+            if (inputs.x < -0.1 || inputs.x > 0.1)
             {
-                velocity.x = Mathf.Lerp(velocity.x, x, Time.deltaTime * airControl);
+                velocity.x = Mathf.Lerp(velocity.x, inputs.x, Time.deltaTime * airControl);
             }
             
-            if (z < -0.1 || z > 0.1)
+            if (inputs.y < -0.1 || inputs.y > 0.1)
             {
-                velocity.z = Mathf.Lerp(velocity.z, z, Time.deltaTime * airControl);
+                velocity.z = Mathf.Lerp(velocity.z, inputs.y, Time.deltaTime * airControl);
             }
         }
+        
+        inputs.Normalize();
         
         Vector3 move = transform.right * velocity.x + transform.forward * velocity.z;
         
