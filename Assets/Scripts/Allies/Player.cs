@@ -26,4 +26,15 @@ public class Player : MonoBehaviour, Ally
 
         healthBar.value = health;
     }
+
+    public void Damage(int dmg)
+    {
+        //TODO
+    }
+
+
+    void Movements()
+    {
+        
+    }
 }

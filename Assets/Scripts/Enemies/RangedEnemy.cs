@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class RangedEnemy : EnemyAI
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject bullet;
+    public float bulletSpeed = 3000;
+    public override void Action()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (Vector3.Distance(transform.position, target.position) > positionRange
+            || Physics.Linecast(transform.position, target.position, coverLayer))
+        {
+            SetState(new MoveState(this));
+        }
+        else
+        {
+            nextAttack = Time.time + attackCooldown;
+            GameObject instance = Instantiate(bullet, transform.position, transform.rotation);
+            instance.GetComponent<Rigidbody>().AddForce((target.position - transform.position).normalized * bulletSpeed);
+        }
     }
 }

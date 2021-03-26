@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface Ally
 {
-    
+    void Damage(int dmg);
 }
