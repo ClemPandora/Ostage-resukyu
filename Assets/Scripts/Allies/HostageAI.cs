@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -10,7 +11,7 @@ public class HostageAI : MonoBehaviour, Ally
 {
    private NavMeshAgent _nav;
    public int frameInterval = 10;
-   public int facePlayerFactor = 50; //For facing the player/enemies
+   public int faceEnemyFactor = 50; //For facing the player/enemies
 
    public List<GameObject> enemies;
    
@@ -19,7 +20,7 @@ public class HostageAI : MonoBehaviour, Ally
    private Vector3 _coverPoint;
    public float rangeRandPoint = 6f;
    public bool isHiding;
-   
+   public int detectionRange;
    //Go To Cover
    public LayerMask coverLayer; //Set the layer that should be used as cover
    private Vector3 _coverObj; // To store the cover objects positions
@@ -37,7 +38,10 @@ public class HostageAI : MonoBehaviour, Ally
    private bool _playerInRange;
 
    private int _testCoverPos = 15;
-   
+
+   private bool _enemyIsInMyVision;
+
+   private Transform _target;
    //bool to find positions behind cover 
    private bool RandomPoint(Vector3 center, float rangeOfRandPoint, out Vector3 resultCover)
    {
@@ -47,7 +51,7 @@ public class HostageAI : MonoBehaviour, Ally
         
          for (int j = 0; j < enemies.Count; j++)
          {
-            Vector3 direction = enemies[j].GetComponent<PlayerTest>().playerPos - _randomPosition;
+            Vector3 direction = enemies[j].transform.position - _randomPosition;
             
             RaycastHit hitTestCov;
          
@@ -78,7 +82,7 @@ public class HostageAI : MonoBehaviour, Ally
          {
             for (int i = 0; i < enemies.Count; i++)
             {
-               float distance = (enemies[i].GetComponent<PlayerTest>().playerPos - transform.position).sqrMagnitude; // check distance to player
+               float distance = (enemies[i].transform.position - transform.position).sqrMagnitude; // check distance to player
                
                if (distance < rangeDist)
                {
@@ -100,13 +104,13 @@ public class HostageAI : MonoBehaviour, Ally
                if (coverNotReached)
                {
                   _nav.SetDestination(_coverObj - transform.forward); // go the cover obj
-                  FacePlayer();
+                  FaceEnemy();
                }
 
                if (!coverNotReached)
                {
                   TakeCover();
-                  FacePlayer();
+                  FaceEnemy();
                }
             }
 
@@ -118,23 +122,30 @@ public class HostageAI : MonoBehaviour, Ally
       }
    }
 
-   void FacePlayer()
+   void FaceEnemy()
    {
-      Vector3 direction = (enemies[0].GetComponent<PlayerTest>().playerPos - transform.position).normalized;
-         
-      Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-      transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * facePlayerFactor);
-      RaycastHit hit;
-         
-      if (Physics.Raycast(_randomPosition, direction.normalized, out hit, rangeRandPoint, enemyLayer))
-      {
-         if (hit.collider.gameObject.CompareTag("Player"))
-         {
-            Debug.DrawRay(transform.position, direction.normalized, Color.red, 200);
-            Debug.Log(hit.collider.gameObject.name);
-            CheckCoverDist();
+      var closestDistance = (enemies[0].transform.position - transform.position).sqrMagnitude;
+      var targetNumber = 0;
+      for (int i = 1; i < enemies.Count; i++) {
+         var thisDistance = (enemies[i].transform.position - transform.position).sqrMagnitude;
+         if (thisDistance < closestDistance) {
+            closestDistance = thisDistance;
+            targetNumber = i;
          }
       }
+      
+      Vector3 direction = (enemies[targetNumber].transform.position - transform.position).normalized;
+        
+      Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        
+      transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * faceEnemyFactor);
+   }
+
+   private void OnDrawGizmos()
+   {
+      //Vector3 direction = (enemies[0].transform.position - transform.position).normalized;
+      
+      //Debug.DrawRay(transform.position, direction.normalized * rangeRandPoint, Color.red, 2);
    }
 
    void CheckCoverDist()
@@ -163,11 +174,11 @@ public class HostageAI : MonoBehaviour, Ally
                coverIsClose = true;
                _coverObj = nearestCollider.transform.position;
                
-               if (coverDistance <= distToCoverObj)
+               if (coverDistance <= distToCoverObj && _enemyIsInMyVision)
                {
                   coverNotReached = false;
                }
-               else if(coverDistance > distToCoverObj)
+               else if(coverDistance > distToCoverObj && !_enemyIsInMyVision)
                {
                   coverNotReached = true;
                }
