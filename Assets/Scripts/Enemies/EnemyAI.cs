@@ -13,6 +13,9 @@ public abstract class EnemyAI : MonoBehaviour
     public LayerMask allyLayer;
     public LayerMask coverLayer;
     private State _currentState;
+    public float attackCooldown;
+    [HideInInspector]
+    public float nextAttack;
 
     private void Start()
     {
@@ -50,12 +53,17 @@ public abstract class EnemyAI : MonoBehaviour
         if (Vector3.Distance(transform.position, target.position) <= positionRange
             && !Physics.Linecast(transform.position, target.position, coverLayer))
         {
+            nav.SetDestination(transform.position);
             SetState(new ActionState(this));
         }
         else
         {
             nav.SetDestination(target.position);
         }
+    }
+
+    public virtual void Action()
+    {
     }
 
     private void OnDrawGizmos()
