@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Player : MonoBehaviour, Ally
 {
@@ -11,21 +13,39 @@ public class Player : MonoBehaviour, Ally
     public float maxHealth;
     public Slider healthBar;
     public GameObject panelDead;
+
+    public float ammo;
+    public float maxAmmo;
+    public TextMeshProUGUI ammoText;
     
     void Start()
     {
         health = maxHealth;
         healthBar.maxValue = maxHealth;
+
+        ammo = maxAmmo;
     }
     
     void Update()
     {
-        if (health > maxHealth)
+        if (health >= maxHealth)
         {
             health = maxHealth;
         }
 
         healthBar.value = health;
+
+        if (ammo >= maxAmmo)
+        {
+            ammo = maxAmmo;
+        }
+
+        ammoText.text = ammo.ToString() + " / " + maxAmmo.ToString();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        
     }
 
     public void Damage(int dmg)
@@ -38,11 +58,5 @@ public class Player : MonoBehaviour, Ally
             Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 0f;
         }
-    }
-
-
-    void Movements()
-    {
-        
     }
 }

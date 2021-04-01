@@ -14,15 +14,26 @@ public class PlayerShoot : MonoBehaviour
     public float fireRate;
     public float power;
 
-    private bool canShoot;
+    private bool _canShoot;
+    private bool _noAmmo;
+    
     
     void Start()
     {
-        canShoot = true;
+        _canShoot = true;
     }
     
     void Update()
     {
+        if (GetComponentInParent<Player>().ammo <= 0)
+        {
+            _noAmmo = true;
+        }
+        else
+        {
+            _noAmmo = false;
+        }
+        
         RaycastHit hit;
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
         
@@ -34,22 +45,25 @@ public class PlayerShoot : MonoBehaviour
             
             if (Input.GetButton("Fire1"))
             {
-                if (canShoot)
+                if (_canShoot && !_noAmmo)
                 {
                     GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
                     bullet.transform.rotation = firePoint.transform.rotation;
+                    GetComponentInParent<Player>().ammo--;
                     bullet.GetComponent<Rigidbody>().AddForce(dir * Vector3.forward * power);
-                    canShoot = false;
+                    _canShoot = false;
                     StartCoroutine(Reloading(fireRate));
                 }
             }
         }
+
+       
     }
     
     IEnumerator Reloading(float time)
     {
         yield return new WaitForSeconds(time);
-        canShoot = true;
+        _canShoot = true;
     }
 }
 

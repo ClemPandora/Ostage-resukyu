@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class AmmoItem : Item
 {
-    public void Use(Player player)
+    public float amount;
+
+    public override void Use(Player player)
     {
+        player.ammo += amount;
+        base.Use(player);
     }
 }
