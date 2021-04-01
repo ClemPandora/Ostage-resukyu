@@ -5,13 +5,9 @@ using UnityEngine;
 
 public class Knife : MonoBehaviour
 {
+    public int dmg = 2;
     private void OnTriggerEnter(Collider other)
     {
-        Ally ally = other.GetComponent<Ally>();
-        if (ally != null)
-        {
-            //Ally.Damage();
-            Debug.Log("Damage");
-        }
+        other.GetComponent<Ally>().Damage(dmg);
     }
 }

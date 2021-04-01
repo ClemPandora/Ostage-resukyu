@@ -20,7 +20,14 @@ public abstract class EnemyAI : MonoBehaviour
 
     private void Start()
     {
+        FindObjectOfType<LiberateHostage>().phase2Event.AddListener(SwitchPhase);
         SetState(new StandByState(this));
+    }
+
+    public virtual void SwitchPhase()
+    {
+        phase2 = true;
+        nav.speed += 1;
     }
 
     private void Update()

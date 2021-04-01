@@ -19,4 +19,14 @@ public class MeleeEnemy : EnemyAI
                 knife.transform.localRotation = Quaternion.Euler(0, 50, 0);
             });
     }
+
+    public override void SwitchPhase()
+    {
+        base.SwitchPhase();
+        Knife kn = knife.GetComponent<Knife>();
+        if (kn != null)
+        {
+            kn.dmg *= 2;
+        }
+    }
 }

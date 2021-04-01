@@ -2,21 +2,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LiberateHostage : MonoBehaviour
 {
 	public HostageFollowPlayer hostage;
+	public UnityEvent phase2Event;
+
+	private void Start()
+	{
+		phase2Event = new UnityEvent();
+	}
 
 	private void OnTriggerEnter(Collider other) // To liberate the hostage
 	{
 		if (other.gameObject.GetComponent<PlayerMovements>()) 
 		{ 
+			phase2Event.Invoke();
 			hostage.GetComponent<HostageAI>().enabled = true; 
-			hostage.transform.SetParent(null);
-		}
-		if (other.gameObject.CompareTag("Player"))
-		{
-			hostage.enabled = true;
 			hostage.transform.SetParent(null);
 		}
 	}

@@ -11,5 +11,13 @@ public class RangedEnemy : EnemyAI
         nextAttack = Time.time + attackCooldown;
         GameObject instance = Instantiate(bullet, transform.position, transform.rotation);
         instance.GetComponent<Rigidbody>().AddForce((target.position - transform.position).normalized * bulletSpeed);
+        if (phase2)
+        {
+            EnemyBullet bull = instance.GetComponent<EnemyBullet>();
+            if (bull != null)
+            {
+                bull.dmg *= 2;
+            }
+        }
     }
 }
