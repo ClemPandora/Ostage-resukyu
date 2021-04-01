@@ -10,7 +10,7 @@ public class HostageLife : MonoBehaviour, Ally
     public HostageFollowPlayer hostageFollowPlayer;
     public GameObject panelDead;
     
-    public void Damage(int dmg)
+    public void Damage(int dmg) // Damage the player
     {
         life -= dmg;
         hostageFollowPlayer.enabled = false;
@@ -25,14 +25,9 @@ public class HostageLife : MonoBehaviour, Ally
             panelDead.SetActive(true);
             Time.timeScale = 0f;
         }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Damage(1);
-        }
     }
 
-    IEnumerator WaitForFollowPlayerAgain()
+    IEnumerator WaitForFollowPlayerAgain() // Wait for follow the player again 
     {
         yield return new WaitForSeconds(waitForSeconds);
         hostageFollowPlayer.enabled = true;

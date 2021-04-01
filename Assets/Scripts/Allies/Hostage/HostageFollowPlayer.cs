@@ -30,7 +30,7 @@ public class HostageFollowPlayer : MonoBehaviour
 			}
 		}
 	}
-
+ 
 	 private void OnDrawGizmos()
 	 {
 		 Gizmos.color = Color.red;

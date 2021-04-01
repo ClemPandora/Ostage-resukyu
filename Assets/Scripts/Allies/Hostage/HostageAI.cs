@@ -46,7 +46,7 @@ public class HostageAI : MonoBehaviour
    
    private NavMeshAgent _nav;
    
-   //bool to find positions behind cover 
+   // Bool to find positions behind cover 
    private bool RandomPoint(Vector3 center, float rangeOfRandPoint, out Vector3 resultCover) // Find a random point behind an object 
    {
       for (int i = 0; i < _coverPos; i++)
