@@ -5,13 +5,10 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour
 {
+    public int dmg = 1;
     private void OnTriggerEnter(Collider other)
     {
-        Ally ally = other.GetComponent<Ally>();
-        if (ally != null)
-        {
-            //ally.Damage();
-        }
+        other.GetComponent<Ally>()?.Damage(dmg);
 
         if (other.GetComponent<EnemyAI>() == null)
         {

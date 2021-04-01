@@ -4,11 +4,12 @@ using UnityEngine.AI;
 
 public abstract class EnemyAI : MonoBehaviour
 {
+    public int health = 3;
     protected bool phase2;
     public float detectionRange;
     public float positionRange;
     [SerializeField]
-    private NavMeshAgent nav;
+    public NavMeshAgent nav;
     public Transform target;
     public LayerMask allyLayer;
     public LayerMask coverLayer;
@@ -32,6 +33,7 @@ public abstract class EnemyAI : MonoBehaviour
         _currentState?.OnStateExit();
 
         _currentState = state;
+        Debug.Log(state);
 
         _currentState?.OnStateEnter();
     }
@@ -40,7 +42,7 @@ public abstract class EnemyAI : MonoBehaviour
     {
         foreach (var coll in Physics.OverlapSphere(transform.position, detectionRange, allyLayer))
         {
-            if (!Physics.SphereCast(new Ray(transform.position, coll.transform.position - transform.position), 1f, Vector3.Distance(coll.transform.position, transform.position), coverLayer))
+            if (!Physics.Linecast(transform.position, coll.transform.position, coverLayer))
             {
                 target = coll.transform;
                 SetState(new MoveState(this));
@@ -50,10 +52,8 @@ public abstract class EnemyAI : MonoBehaviour
 
     public virtual void Move()
     {
-        if (Vector3.Distance(transform.position, target.position) <= positionRange
-            && !Physics.SphereCast(new Ray(transform.position, target.position - transform.position), 1f, Vector3.Distance(target.position, transform.position), coverLayer))
+        if (AllyInRange())
         {
-            nav.SetDestination(transform.position);
             SetState(new ActionState(this));
         }
         else
@@ -64,6 +64,30 @@ public abstract class EnemyAI : MonoBehaviour
 
     public virtual void Action()
     {
+    }
+
+    public bool AllyInRange()
+    {
+        RaycastHit hit;
+        if (!(Physics.SphereCastAll(transform.position, 0.5f, target.position - transform.position,
+                  Vector3.Distance(transform.position, target.position), coverLayer).Length > 0
+              || Vector3.Distance(transform.position, target.position) > positionRange))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void Damage(int dmg)
+    {
+        health -= dmg;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnDrawGizmos()

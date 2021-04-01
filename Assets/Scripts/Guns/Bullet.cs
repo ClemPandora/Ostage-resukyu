@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float damage;
+    public int dmg = 1;
 
     public float speed = 10000;
     
@@ -23,10 +23,7 @@ public class Bullet : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
-        {
-            //other.gameObject.GetComponent<Enemy>().TakeDamage(damage);
-        }
+        other.GetComponent<EnemyAI>()?.Damage(dmg);
         Destroy(gameObject);
     }
 }
