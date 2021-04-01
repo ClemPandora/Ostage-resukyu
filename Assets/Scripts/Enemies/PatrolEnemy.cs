@@ -5,16 +5,56 @@ using UnityEngine;
 public class PatrolEnemy : EnemyAI
 {
     [SerializeField]
-    private LandMine _mine;
-    // Start is called before the first frame update
-    void Start()
+    private GameObject _mine;
+
+    public float callRange = 10;
+    public float fleeDistance = 5;
+
+    public override void Action()
     {
-        
+        nextAttack = Time.time + attackCooldown;
+        if (phase2)
+        {
+            Instantiate(_mine, transform.position - new Vector3(0, -1.5f, 0), transform.rotation);
+        }
+        foreach (var coll in Physics.OverlapSphere(transform.position, callRange))
+        {
+            Debug.Log(coll.gameObject.name);
+            EnemyAI enemy = coll.gameObject.GetComponent<EnemyAI>();
+            if (enemy != null)
+            {
+                enemy.target = target;
+                enemy.SetState(new MoveState(enemy));
+            }
+        }
+        SetState(new MoveState(this));
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Detect()
     {
-        
+        foreach (var coll in Physics.OverlapSphere(transform.position, detectionRange, allyLayer))
+        {
+            if (!Physics.Linecast(transform.position, coll.transform.position, coverLayer))
+            {
+                target = coll.transform;
+                SetState(new ActionState(this));
+            }
+        }
+    }
+
+    public override void Move()
+    {
+        nav.SetDestination(transform.position + (transform.position - target.position).normalized * fleeDistance);
+        if (!AllyInRange())
+        {
+            SetState(new StandByState(this));
+        }
+    }
+
+    public override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, callRange);
     }
 }

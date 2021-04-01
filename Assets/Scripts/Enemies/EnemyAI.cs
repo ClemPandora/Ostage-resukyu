@@ -40,7 +40,7 @@ public abstract class EnemyAI : MonoBehaviour
         _currentState?.OnStateExit();
 
         _currentState = state;
-        Debug.Log(state);
+        Debug.Log(name +" : "+state);
 
         _currentState?.OnStateEnter();
     }
@@ -75,17 +75,9 @@ public abstract class EnemyAI : MonoBehaviour
 
     public bool AllyInRange()
     {
-        RaycastHit hit;
-        if (!(Physics.SphereCastAll(transform.position, 0.5f, target.position - transform.position,
-                  Vector3.Distance(transform.position, target.position), coverLayer).Length > 0
-              || Vector3.Distance(transform.position, target.position) > positionRange))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return !(Physics.SphereCastAll(transform.position, 0.5f, target.position - transform.position,
+                     Vector3.Distance(transform.position, target.position), coverLayer).Length > 0
+                 || Vector3.Distance(transform.position, target.position) > positionRange);
     }
 
     public void Damage(int dmg)
@@ -97,7 +89,7 @@ public abstract class EnemyAI : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
+    public virtual void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRange);

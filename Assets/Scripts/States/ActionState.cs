@@ -12,7 +12,6 @@ public class ActionState : State
     {
         if (ai.AllyInRange())
         {
-            
             if (Time.time >= ai.nextAttack)
             {
                 ai.Action();
