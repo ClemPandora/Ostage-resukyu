@@ -19,7 +19,7 @@ public class LiberateHostage : MonoBehaviour
 		if (other.gameObject.GetComponent<PlayerMovements>()) 
 		{ 
 			phase2Event.Invoke();
-			hostage.GetComponent<HostageAI>().enabled = true; 
+			hostage.GetComponent<HostageFollowPlayer>().enabled = true; 
 			hostage.transform.SetParent(null);
 		}
 	}

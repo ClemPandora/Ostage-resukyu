@@ -1554,6 +1554,7 @@ MonoBehaviour:
   - {fileID: 1490685335}
   - {fileID: 1402679759}
   - {fileID: 1566446213}
+  - {fileID: 835487826}
   coverLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -2942,6 +2943,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 991901552588602300, guid: 51b35a3879d2daf4684259a0f1dacbb5,
     type: 3}
   m_PrefabInstance: {fileID: 744894707}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &835487826 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2308235927379090446, guid: a4589c48cca974943a4fb2a00979e94b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1630646223}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &873494320
 GameObject:
@@ -5024,6 +5031,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2308235927379090445, guid: a4589c48cca974943a4fb2a00979e94b,
+        type: 3}
+      propertyPath: speed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2308235927379090445, guid: a4589c48cca974943a4fb2a00979e94b,
+        type: 3}
+      propertyPath: airControl
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2308235927379090445, guid: a4589c48cca974943a4fb2a00979e94b,
+        type: 3}
+      propertyPath: jumpHeight
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2308235927379090445, guid: a4589c48cca974943a4fb2a00979e94b,
+        type: 3}
+      propertyPath: acceleration
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2308235927379090445, guid: a4589c48cca974943a4fb2a00979e94b,
+        type: 3}
+      propertyPath: mouseSensitivity
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2308235927379090445, guid: a4589c48cca974943a4fb2a00979e94b,
         type: 3}
