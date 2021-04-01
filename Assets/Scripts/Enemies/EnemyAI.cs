@@ -1,4 +1,5 @@
 ﻿using System;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -40,7 +41,6 @@ public abstract class EnemyAI : MonoBehaviour
         _currentState?.OnStateExit();
 
         _currentState = state;
-        Debug.Log(name +" : "+state);
 
         _currentState?.OnStateEnter();
     }

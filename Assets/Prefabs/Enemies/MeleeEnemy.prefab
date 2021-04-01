@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 991901551907501477}
   - component: {fileID: 991901551907501478}
   - component: {fileID: 991901551907501479}
+  - component: {fileID: 3617356116290075381}
   m_Layer: 0
   m_Name: Blade
   m_TagString: Untagged
@@ -93,6 +94,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3617356116290075381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991901551907501481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32b270adfda420f4c8fbd6c8f3bab484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmg: 2
 --- !u!1 &991901552036079472
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,6 +151,7 @@ GameObject:
   - component: {fileID: 991901552588602296}
   - component: {fileID: 991901552588602298}
   - component: {fileID: 991901552588602299}
+  - component: {fileID: 744894709}
   m_Layer: 9
   m_Name: MeleeEnemy
   m_TagString: Untagged
@@ -240,6 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f917f6d0e4b50848bab4262a167f83d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 3
   detectionRange: 10
   positionRange: 2
   nav: {fileID: 991901552588602298}
@@ -253,3 +269,17 @@ MonoBehaviour:
   attackCooldown: 1
   nextAttack: 0
   knife: {fileID: 991901552036079472}
+--- !u!136 &744894709
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991901552588602300}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}

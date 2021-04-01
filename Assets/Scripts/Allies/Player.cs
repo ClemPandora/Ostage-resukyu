@@ -10,6 +10,7 @@ public class Player : MonoBehaviour, Ally
     public float health;
     public float maxHealth;
     public Slider healthBar;
+    public GameObject panelDead;
     
     void Start()
     {
@@ -29,7 +30,14 @@ public class Player : MonoBehaviour, Ally
 
     public void Damage(int dmg)
     {
-        //TODO
+        health -= dmg;
+        if (health <= 0)
+        {
+            health = 0;
+            panelDead.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0f;
+        }
     }
 
 
