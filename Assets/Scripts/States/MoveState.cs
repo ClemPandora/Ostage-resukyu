@@ -12,4 +12,14 @@ public class MoveState : State
     {
         ai.Move();
     }
+
+    public override void OnStateEnter()
+    {
+        ai.nav.isStopped = false;
+    }
+
+    public override void OnStateExit()
+    {
+        ai.nav.isStopped = true;
+    }
 }

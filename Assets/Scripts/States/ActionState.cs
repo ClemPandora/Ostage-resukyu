@@ -10,9 +10,18 @@ public class ActionState : State
 
     public override void Tick()
     {
-        if (Time.time >= ai.nextAttack)
+        if (ai.AllyInRange())
         {
-            ai.Action();
+            
+            if (Time.time >= ai.nextAttack)
+            {
+                ai.Action();
+            }
         }
+        else
+        {
+            ai.SetState(new MoveState(ai));
+        }
+        
     }
 }
