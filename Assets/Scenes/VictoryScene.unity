@@ -6743,11 +6743,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BoxColliderHostage
       objectReference: {fileID: 0}
-    - target: {fileID: 9097361866545071793, guid: 25f16af4f813655499a0c9c7933dbf8a,
-        type: 3}
-      propertyPath: m_CollisionDetection
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 9097361866545071798, guid: 25f16af4f813655499a0c9c7933dbf8a,
         type: 3}
       propertyPath: m_RootOrder
