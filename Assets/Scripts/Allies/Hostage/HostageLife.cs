@@ -20,6 +20,7 @@ public class HostageLife : MonoBehaviour, Ally
         hostageAi.enabled = true;
         if (life <= 0)
         {
+            Time.timeScale = 0f;
             panelDead.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

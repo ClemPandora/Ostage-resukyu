@@ -11,6 +11,7 @@ public class Victory : MonoBehaviour
    {
       if (other.GetComponent<HostageLife>())
       {
+         Time.timeScale = 0f;
          Cursor.visible = true;
          Cursor.lockState = CursorLockMode.Confined;
          victoryPanel.SetActive(true);
