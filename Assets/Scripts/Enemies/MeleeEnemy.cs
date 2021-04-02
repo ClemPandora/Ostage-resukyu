@@ -26,7 +26,6 @@ public class MeleeEnemy : EnemyAI
         Knife kn = knife.GetComponent<Knife>();
         if (kn != null)
         {
-            Debug.Log("double damage");
             kn.dmg *= 2;
         }
     }
