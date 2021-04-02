@@ -86,7 +86,7 @@ public class HostageAI : MonoBehaviour
          {
             for (int i = 0; i < enemies.Count; i++)
             {
-               float distance = (enemies[i].transform.position - transform.position).sqrMagnitude; // check distance to player
+               float distance = (enemies[i].transform.position - transform.position).sqrMagnitude; // check distance to enemies
                
                if (distance < rangeDist)
                {

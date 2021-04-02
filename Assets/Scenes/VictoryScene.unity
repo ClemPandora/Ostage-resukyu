@@ -6688,6 +6688,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2940914447829537574, guid: 25f16af4f813655499a0c9c7933dbf8a,
+        type: 3}
+      propertyPath: m_Value
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2940914447829537574, guid: 25f16af4f813655499a0c9c7933dbf8a,
+        type: 3}
+      propertyPath: m_MaxValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2940914447829537574, guid: 25f16af4f813655499a0c9c7933dbf8a,
+        type: 3}
+      propertyPath: m_WholeNumbers
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2940914447829537574, guid: 25f16af4f813655499a0c9c7933dbf8a,
+        type: 3}
+      propertyPath: m_Colors.m_ColorMultiplier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9097361864867271922, guid: 25f16af4f813655499a0c9c7933dbf8a,
         type: 3}
       propertyPath: enemies.Array.data[0]
@@ -6733,6 +6753,11 @@ PrefabInstance:
       propertyPath: targetPlayer
       value: 
       objectReference: {fileID: 1771581790}
+    - target: {fileID: 9097361864867271935, guid: 25f16af4f813655499a0c9c7933dbf8a,
+        type: 3}
+      propertyPath: life
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 9097361864867271935, guid: 25f16af4f813655499a0c9c7933dbf8a,
         type: 3}
       propertyPath: panelDead
