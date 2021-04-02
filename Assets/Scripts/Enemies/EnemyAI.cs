@@ -58,6 +58,22 @@ public abstract class EnemyAI : MonoBehaviour
         }
     }
 
+    public void CheckNearestTarget()
+    {
+        foreach (var coll in Physics.OverlapSphere(transform.position, detectionRange, allyLayer))
+        {
+            if (Physics.SphereCastAll(transform.position, 0.5f, coll.transform.position - transform.position,
+                Vector3.Distance(transform.position, coll.transform.position), coverLayer).Length == 0)
+            {
+                if (Vector3.Distance(transform.position, target.position) >
+                    Vector3.Distance(transform.position, coll.transform.position))
+                {
+                    target = coll.transform;
+                }
+            }
+        }
+    }
+
     public virtual void Move()
     {
         if (AllyInRange())

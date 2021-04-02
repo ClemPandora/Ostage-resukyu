@@ -10,6 +10,7 @@ public class MoveState : State
 
     public override void Tick()
     {
+        ai.CheckNearestTarget();
         ai.Move();
     }
 

@@ -269,7 +269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxAmmo: 40
   fireRate: 0.2
-  damage: 1
+  damage: 2
   holded: 0
   baseRot: {x: -0.000000030903283, y: -0.7069847, z: -0.70722884, w: 0.000000030913956}
 --- !u!1 &8285321550493709311
