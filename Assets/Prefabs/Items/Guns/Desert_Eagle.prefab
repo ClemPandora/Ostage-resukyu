@@ -303,7 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAmmo: 15
-  fireRate: 1
+  fireRate: 0.5
   damage: 5
   holded: 0
   baseRot: {x: 0, y: 0, z: 0, w: 0}
