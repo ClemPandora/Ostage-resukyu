@@ -29,6 +29,7 @@ public abstract class EnemyAI : MonoBehaviour
     {
         phase2 = true;
         nav.speed += 1;
+        Debug.Log("Phase 2");
     }
 
     private void Update()

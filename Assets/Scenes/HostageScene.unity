@@ -2206,6 +2206,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2144249002924848685, guid: 768f6f056f0fb3440ba1a40ae9d2322c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2144249003015187505, guid: 768f6f056f0fb3440ba1a40ae9d2322c,
         type: 3}
       propertyPath: m_Name
@@ -2219,7 +2224,7 @@ PrefabInstance:
     - target: {fileID: 2144249003015187510, guid: 768f6f056f0fb3440ba1a40ae9d2322c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 29
+      value: 31.69
       objectReference: {fileID: 0}
     - target: {fileID: 2144249003015187510, guid: 768f6f056f0fb3440ba1a40ae9d2322c,
         type: 3}
@@ -2229,7 +2234,7 @@ PrefabInstance:
     - target: {fileID: 2144249003015187510, guid: 768f6f056f0fb3440ba1a40ae9d2322c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 2144249003015187510, guid: 768f6f056f0fb3440ba1a40ae9d2322c,
         type: 3}
@@ -6795,6 +6800,11 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5062055762823841603, guid: fca55fdd8db70044a9887ced3d20dc41,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7185193815213038265, guid: fca55fdd8db70044a9887ced3d20dc41,
         type: 3}
       propertyPath: m_IsActive
       value: 0

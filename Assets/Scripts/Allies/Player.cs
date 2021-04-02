@@ -56,6 +56,7 @@ public class Player : MonoBehaviour, Ally
             health = 0;
             panelDead.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             Time.timeScale = 0f;
         }
     }

@@ -19,7 +19,6 @@ public class PatrolEnemy : EnemyAI
         }
         foreach (var coll in Physics.OverlapSphere(transform.position, callRange))
         {
-            Debug.Log(coll.gameObject.name);
             EnemyAI enemy = coll.gameObject.GetComponent<EnemyAI>();
             if (enemy != null)
             {

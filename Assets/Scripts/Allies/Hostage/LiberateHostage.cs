@@ -9,7 +9,7 @@ public class LiberateHostage : MonoBehaviour
 	public HostageFollowPlayer hostage;
 	public UnityEvent phase2Event;
 
-	private void Start()
+	private void Awake()
 	{
 		phase2Event = new UnityEvent();
 	}

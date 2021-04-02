@@ -15,17 +15,14 @@ public class HostageLife : MonoBehaviour, Ally
         life -= dmg;
         hostageFollowPlayer.enabled = false;
         hostageAi.enabled = true;
-        StartCoroutine(WaitForFollowPlayerAgain());
-    }
-
-    private void Update()
-    {
         if (life <= 0)
         {
             panelDead.SetActive(true);
             Time.timeScale = 0f;
             Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
+        StartCoroutine(WaitForFollowPlayerAgain());
     }
 
     IEnumerator WaitForFollowPlayerAgain() // Wait for follow the player again 
