@@ -21,6 +21,5 @@ public class ActionState : State
         {
             ai.SetState(new MoveState(ai));
         }
-        
     }
 }

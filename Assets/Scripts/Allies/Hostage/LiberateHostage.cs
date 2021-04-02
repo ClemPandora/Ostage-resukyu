@@ -22,6 +22,7 @@ public class LiberateHostage : MonoBehaviour
 			hostage.GetComponent<HostageFollowPlayer>().enabled = true; 
 			hostage.transform.SetParent(null);
 			panelHealthBar.SetActive(true);
+			Destroy(gameObject);
 		}
 	}
 }

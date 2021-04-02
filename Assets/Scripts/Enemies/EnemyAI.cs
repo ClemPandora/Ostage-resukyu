@@ -29,7 +29,6 @@ public abstract class EnemyAI : MonoBehaviour
     {
         phase2 = true;
         nav.speed += 1;
-        Debug.Log("Phase 2");
     }
 
     private void Update()
@@ -50,7 +49,8 @@ public abstract class EnemyAI : MonoBehaviour
     {
         foreach (var coll in Physics.OverlapSphere(transform.position, detectionRange, allyLayer))
         {
-            if (!Physics.Linecast(transform.position, coll.transform.position, coverLayer))
+            if (Physics.SphereCastAll(transform.position, 0.5f, coll.transform.position - transform.position,
+                Vector3.Distance(transform.position, coll.transform.position), coverLayer).Length == 0)
             {
                 target = coll.transform;
                 SetState(new MoveState(this));
