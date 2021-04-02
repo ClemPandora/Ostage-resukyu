@@ -21,6 +21,7 @@ public class LiberateHostage : MonoBehaviour
 			phase2Event.Invoke();
 			hostage.GetComponent<HostageFollowPlayer>().enabled = true; 
 			hostage.transform.SetParent(null);
+			Destroy(gameObject);
 		}
 	}
 }

@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class LandMine : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public int dmg = 5;
+    private void OnTriggerEnter(Collider other)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (other.GetComponent<Ally>() != null)
+        {
+            other.GetComponent<Ally>()?.Damage(dmg);
+            Destroy(gameObject);
+        }
     }
 }

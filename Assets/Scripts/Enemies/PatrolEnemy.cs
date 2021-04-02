@@ -7,15 +7,17 @@ public class PatrolEnemy : EnemyAI
     [SerializeField]
     private GameObject _mine;
 
+    private GameObject _myMine;
+
     public float callRange = 10;
     public float fleeDistance = 5;
 
     public override void Action()
     {
         nextAttack = Time.time + attackCooldown;
-        if (phase2)
+        if (phase2 && _myMine == null)
         {
-            Instantiate(_mine, transform.position - new Vector3(0, -1.5f, 0), transform.rotation);
+            _myMine = Instantiate(_mine, transform.position + new Vector3(0, -1.5f, 0), transform.rotation);
         }
         foreach (var coll in Physics.OverlapSphere(transform.position, callRange))
         {
