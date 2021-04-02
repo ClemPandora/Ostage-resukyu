@@ -116,9 +116,9 @@ GameObject:
   - component: {fileID: 2144249003015187506}
   - component: {fileID: 2144249003015187511}
   - component: {fileID: 2144249003015187512}
-  m_Layer: 0
-  m_Name: Player 1
-  m_TagString: Untagged
+  m_Layer: 10
+  m_Name: Player
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -228,7 +228,7 @@ MonoBehaviour:
   groundDistance: 0.4
   groundMask:
     serializedVersion: 2
-    m_Bits: 2147483648
+    m_Bits: 4096
   velocity: {x: 0, y: 0, z: 0}
   playerBody: {fileID: 2144249003015187510}
   camera: {fileID: 2144249004219190833}
@@ -250,7 +250,7 @@ MonoBehaviour:
     type: 3}
   gun: {fileID: 2144249003121270729}
   fireRate: 0.2
-  power: 10000
+  power: 3000
 --- !u!114 &2144249003015187512
 MonoBehaviour:
   m_ObjectHideFlags: 0
