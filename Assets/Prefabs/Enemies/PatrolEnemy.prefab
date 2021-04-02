@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9de59dd1ea610634aa84cd50857daa89, type: 2}
+  - {fileID: 2100000, guid: 9b2d5bff074dda345bd4461219cb06c5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -117,8 +117,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
-  detectionRange: 12
-  positionRange: 12
+  detectionRange: 15
+  positionRange: 20
   nav: {fileID: 5812779685129694711}
   target: {fileID: 0}
   allyLayer:
@@ -129,7 +129,7 @@ MonoBehaviour:
     m_Bits: 256
   attackCooldown: 1
   nextAttack: 0
-  _mine: {fileID: 0}
+  _mine: {fileID: 581658089705069992, guid: bf9fef36096290e4da358dfc6f1b0496, type: 3}
   callRange: 15
   fleeDistance: 10
 --- !u!136 &5812779685129694707

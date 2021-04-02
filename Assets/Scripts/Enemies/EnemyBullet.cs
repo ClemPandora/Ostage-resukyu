@@ -9,7 +9,6 @@ public class EnemyBullet : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         other.GetComponent<Ally>()?.Damage(dmg);
-        other.GetComponent<HostageLife>()?.Damage(dmg);
         if (other.GetComponent<EnemyAI>() == null)
         {
             Destroy(gameObject);

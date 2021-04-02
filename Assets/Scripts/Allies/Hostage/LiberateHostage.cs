@@ -8,8 +8,8 @@ public class LiberateHostage : MonoBehaviour
 {
 	public HostageFollowPlayer hostage;
 	public UnityEvent phase2Event;
-
-	private void Start()
+	public GameObject panelHealthBar;
+	private void Awake()
 	{
 		phase2Event = new UnityEvent();
 	}
@@ -21,6 +21,8 @@ public class LiberateHostage : MonoBehaviour
 			phase2Event.Invoke();
 			hostage.GetComponent<HostageFollowPlayer>().enabled = true; 
 			hostage.transform.SetParent(null);
+			panelHealthBar.SetActive(true);
+			Destroy(gameObject);
 		}
 	}
 }
