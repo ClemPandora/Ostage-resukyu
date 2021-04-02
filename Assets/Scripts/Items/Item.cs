@@ -8,6 +8,7 @@ public class Item : MonoBehaviour
     public virtual void Use(Player player)
     {
         GetComponentInParent<ItemSpawner>().itemSpawned = false;
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -15,7 +16,6 @@ public class Item : MonoBehaviour
         if (other.GetComponent<Player>() != null)
         {
             Use(other.GetComponent<Player>());
-            Destroy(gameObject);
         }
     }
 }

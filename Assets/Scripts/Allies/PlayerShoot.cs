@@ -56,8 +56,6 @@ public class PlayerShoot : MonoBehaviour
                 }
             }
         }
-
-       
     }
     
     IEnumerator Reloading(float time)

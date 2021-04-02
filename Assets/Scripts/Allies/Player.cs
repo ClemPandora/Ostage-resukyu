@@ -7,7 +7,8 @@ using TMPro;
 
 public class Player : MonoBehaviour, Ally
 {
-    //public Gun gun;
+    public Transform gun;
+    public GameObject actualGun;
 
     public float health;
     public float maxHealth;
