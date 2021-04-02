@@ -219,10 +219,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 100
   controller: {fileID: 2144249003015187507}
-  speed: 15
+  speed: 8
   gravity: -9.81
-  jumpHeight: 3
-  acceleration: 200
+  jumpHeight: 1.5
+  acceleration: 100
   airControl: 1.5
   groundCheck: {fileID: 2144249003379184863}
   groundDistance: 0.4
