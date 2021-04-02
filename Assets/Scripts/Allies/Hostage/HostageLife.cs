@@ -21,7 +21,6 @@ public class HostageLife : MonoBehaviour, Ally
         if (life <= 0)
         {
             panelDead.SetActive(true);
-            Time.timeScale = 0f;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
