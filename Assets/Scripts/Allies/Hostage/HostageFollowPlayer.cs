@@ -24,7 +24,7 @@ public class HostageFollowPlayer : MonoBehaviour
 
 		foreach (var coll in Physics.OverlapSphere(transform.position, detectionRangePlayer, playerLayer))
 		{
-			if (coll.gameObject.GetComponent<PlayerMovements>())
+			if (coll.gameObject.CompareTag("Player"))
 			{
 				_nav.SetDestination(Vector3.zero);
 			}

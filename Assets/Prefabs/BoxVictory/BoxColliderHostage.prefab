@@ -325,9 +325,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 10
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 10
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -702,6 +702,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   coverLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -731,7 +733,7 @@ MonoBehaviour:
   detectionRangePlayer: 2
   playerLayer:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 1024
   speed: 3
 --- !u!114 &9097361864867271935
 MonoBehaviour:
@@ -745,7 +747,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a15412e5190d8c4384738149334ef36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 5
+  life: 10
   waitForSeconds: 8
   hostageAi: {fileID: 9097361864867271922}
   hostageFollowPlayer: {fileID: 9097361864867271934}
