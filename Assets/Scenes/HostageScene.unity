@@ -2206,30 +2206,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2144249002924848685, guid: 768f6f056f0fb3440ba1a40ae9d2322c,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2144249003015187505, guid: 768f6f056f0fb3440ba1a40ae9d2322c,
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 2144249003015187505, guid: 768f6f056f0fb3440ba1a40ae9d2322c,
-        type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2144249003015187505, guid: 768f6f056f0fb3440ba1a40ae9d2322c,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 2144249003015187506, guid: 768f6f056f0fb3440ba1a40ae9d2322c,
-        type: 3}
-      propertyPath: groundMask.m_Bits
-      value: 4096
       objectReference: {fileID: 0}
     - target: {fileID: 2144249003015187510, guid: 768f6f056f0fb3440ba1a40ae9d2322c,
         type: 3}
@@ -2286,11 +2266,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2144249003015187511, guid: 768f6f056f0fb3440ba1a40ae9d2322c,
+    - target: {fileID: 2144249003015187512, guid: 768f6f056f0fb3440ba1a40ae9d2322c,
         type: 3}
-      propertyPath: power
-      value: 3000
-      objectReference: {fileID: 0}
+      propertyPath: panelDead
+      value: 
+      objectReference: {fileID: 2120732}
     - target: {fileID: 2144249003612403890, guid: 768f6f056f0fb3440ba1a40ae9d2322c,
         type: 3}
       propertyPath: m_AnchorMax.x
