@@ -17,13 +17,14 @@ public class ItemSpawner : MonoBehaviour
     void Start()
     {
         _actualcd = cd;
-       prefabsItems = prefabsItems.OrderByDescending(o => o.GetComponent<Item>().spawnRate).ToList();
+       prefabsItems = prefabsItems.OrderByDescending(o => o.GetComponent<Item>().spawnRate).ToList(); // Sort order of list by the spawn rate of items
     }
     
     void Update()
     {
         if (!itemSpawned)
         {
+            //Cooldown system
             _actualcd -= Time.deltaTime;
 
             if (_actualcd <= 0)
@@ -33,20 +34,13 @@ public class ItemSpawner : MonoBehaviour
             }
         }
     }
-
-    void SpawnItem(GameObject item)
-    {
-        Instantiate(item, spawnPoint);
-        itemSpawned = true;
-    }
-
+    
     void Roll()
     {
         float die = Random.Range(0,100);
-        Debug.Log(die);
         float deltaDie = 0;
 
-        for (int i = 0; i < prefabsItems.Count; i++)
+        for (int i = 0; i < prefabsItems.Count; i++) //Spawn rate system by % (this system works only if the sum of spawn rates is 100)
         {
             deltaDie += prefabsItems[i].GetComponent<Item>().spawnRate;
             if (deltaDie >= die)
@@ -56,5 +50,11 @@ public class ItemSpawner : MonoBehaviour
                 break;
             }
         }
+    }
+    
+    void SpawnItem(GameObject item)
+    {
+        Instantiate(item, spawnPoint);
+        itemSpawned = true;
     }
 }

@@ -21,6 +21,7 @@ public class Player : MonoBehaviour, Ally
     
     void Start()
     {
+        // init max health/ammo values
         health = maxHealth;
         healthBar.maxValue = maxHealth;
 
@@ -29,26 +30,26 @@ public class Player : MonoBehaviour, Ally
     
     void Update()
     {
+        // lock max health
         if (health >= maxHealth)
         {
             health = maxHealth;
         }
 
+        // synchronize ath with health value
         healthBar.value = health;
 
+        // lock max ammo
         if (ammo >= maxAmmo)
         {
             ammo = maxAmmo;
         }
 
+        // synchronize ath with ammo value
         ammoText.text = ammo.ToString() + " / " + maxAmmo.ToString();
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        
-    }
-
+    
+    // player taking damage function
     public void Damage(int dmg)
     {
         health -= dmg;
