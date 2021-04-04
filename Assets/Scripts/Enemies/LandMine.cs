@@ -11,6 +11,11 @@ public class LandMine : MonoBehaviour
         {
             //Damage colliding allies and destroy the mine
             other.GetComponent<Ally>()?.Damage(dmg);
+            if (other.GetComponent<Player>() != null)
+            {
+                //Ensure that the mines is removed from the mine difuser
+                other.GetComponent<Player>().mineDefuser.Explode(gameObject);
+            }
             Destroy(gameObject);
         }
     }

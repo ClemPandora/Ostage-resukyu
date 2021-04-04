@@ -18,6 +18,8 @@ public class Player : MonoBehaviour, Ally
     public float ammo;
     public float maxAmmo;
     public TextMeshProUGUI ammoText;
+
+    public MineDefuse mineDefuser;
     
     void Start()
     {
