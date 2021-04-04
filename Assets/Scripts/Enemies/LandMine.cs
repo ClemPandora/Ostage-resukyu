@@ -9,6 +9,7 @@ public class LandMine : MonoBehaviour
     {
         if (other.GetComponent<Ally>() != null)
         {
+            //Damage colliding allies and destroy the mine
             other.GetComponent<Ally>()?.Damage(dmg);
             Destroy(gameObject);
         }

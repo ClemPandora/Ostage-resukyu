@@ -6,11 +6,17 @@ using UnityEngine;
 public class MeleeEnemy : EnemyAI
 {
     public GameObject knife;
+    
+    //Attack the target with a knife
     public override void Action()
     {
-        
+        //Set the next attack timer
         nextAttack = Time.time + attackCooldown;
+        
+        //Look at the target
         transform.LookAt(target, transform.up);
+        
+        //enable the knife, and make it rotate to collide with the target
         knife.SetActive(true);
         knife.transform.DOLocalRotate(new Vector3(0, -50, 0), 0.4f)
             .OnComplete(() =>
@@ -20,6 +26,7 @@ public class MeleeEnemy : EnemyAI
             });
     }
 
+    //Double the knife damage on phase 2
     public override void SwitchPhase()
     {
         base.SwitchPhase();
