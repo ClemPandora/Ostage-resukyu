@@ -106,4 +106,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80742c27386556a4fa6dd1e0feb14352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnRate: 33
   amount: 10

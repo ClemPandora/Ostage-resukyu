@@ -302,6 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 534f74b67101e4d4f89906a91bd49353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnRate: 7
   maxAmmo: 15
   fireRate: 0.5
   damage: 5

@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ItemSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject[] prefabsItems = new GameObject[3];
+    [SerializeField] private List<GameObject> prefabsItems = new List<GameObject>();
 
     public bool itemSpawned;
 
@@ -16,6 +17,7 @@ public class ItemSpawner : MonoBehaviour
     void Start()
     {
         _actualcd = cd;
+       prefabsItems = prefabsItems.OrderByDescending(o => o.GetComponent<Item>().spawnRate).ToList();
     }
     
     void Update()
@@ -26,9 +28,8 @@ public class ItemSpawner : MonoBehaviour
 
             if (_actualcd <= 0)
             {
-                SpawnItem(prefabsItems[Random.Range(0,prefabsItems.Length-1)]);
+                Roll();
                 _actualcd = cd;
-                itemSpawned = true;
             }
         }
     }
@@ -36,5 +37,24 @@ public class ItemSpawner : MonoBehaviour
     void SpawnItem(GameObject item)
     {
         Instantiate(item, spawnPoint);
+        itemSpawned = true;
+    }
+
+    void Roll()
+    {
+        float die = Random.Range(0,100);
+        Debug.Log(die);
+        float deltaDie = 0;
+
+        for (int i = 0; i < prefabsItems.Count; i++)
+        {
+            deltaDie += prefabsItems[i].GetComponent<Item>().spawnRate;
+            if (deltaDie >= die)
+            {
+                SpawnItem(prefabsItems[i]);
+                deltaDie = 0;
+                break;
+            }
+        }
     }
 }
