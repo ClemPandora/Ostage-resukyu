@@ -9,29 +9,29 @@ public class PlayerShoot : MonoBehaviour
     public Transform firePoint;
     
     public GameObject bulletPrefab;
-    public GameObject gun;
-
+    
     public float fireRate;
     public float power;
 
-    private bool _canShoot;
-    private bool _noAmmo;
+    private bool canShoot;
+    private bool noAmmo;
     
     
     void Start()
     {
-        _canShoot = true;
+        canShoot = true;
     }
     
     void Update()
     {
-        if (GetComponentInParent<Player>().ammo <= 0)
+        // Check remaining ammo
+        if (GetComponentInParent<Player>().ammo <= 0) 
         {
-            _noAmmo = true;
+            noAmmo = true;
         }
         else
         {
-            _noAmmo = false;
+            noAmmo = false;
         }
         
         RaycastHit hit;
@@ -39,29 +39,31 @@ public class PlayerShoot : MonoBehaviour
         
         if (Physics.Raycast(ray, out hit))
         {
+            // set direction of shoot
             firePoint.transform.LookAt(hit.point);
             var dir = Quaternion.LookRotation(hit.point - firePoint.position);
             
-            
+            // shoot system
             if (Input.GetButton("Fire1"))
             {
-                if (_canShoot && !_noAmmo)
+                if (canShoot && !noAmmo)
                 {
                     GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
                     bullet.transform.rotation = firePoint.transform.rotation;
                     GetComponentInParent<Player>().ammo--;
                     bullet.GetComponent<Rigidbody>().AddForce(dir * Vector3.forward * power);
-                    _canShoot = false;
+                    canShoot = false;
                     StartCoroutine(Reloading(fireRate));
                 }
             }
         }
     }
     
+    // fire rate coroutine
     IEnumerator Reloading(float time)
     {
         yield return new WaitForSeconds(time);
-        _canShoot = true;
+        canShoot = true;
     }
 }
 

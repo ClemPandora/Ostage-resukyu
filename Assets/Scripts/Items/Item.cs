@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
+    public float spawnRate;
+    
     public virtual void Use(Player player)
     {
         GetComponentInParent<ItemSpawner>().itemSpawned = false;

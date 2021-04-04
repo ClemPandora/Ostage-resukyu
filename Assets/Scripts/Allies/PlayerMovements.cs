@@ -20,7 +20,7 @@ public class PlayerMovements : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
     
-    public Vector3 velocity;
+    private Vector3 velocity;
     private bool isGrounded;
     
     public Transform playerBody;
@@ -35,24 +35,27 @@ public class PlayerMovements : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         MouseLook();
         
+        // check if player is on ground
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
+        // lock the increase of down velocity if player is on ground
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
         }
 
+        //set inputs values
         Vector2 inputs;
         inputs.x = Input.GetAxis("Horizontal");
         inputs.y = Input.GetAxis("Vertical");
+        inputs.Normalize();
         
-        if (isGrounded)
+        if (isGrounded)// pre calculate velocity on ground
         {
             if (inputs.x < -0.1 || inputs.x > 0.1)
             {
@@ -72,7 +75,7 @@ public class PlayerMovements : MonoBehaviour
                 velocity.z = Mathf.Lerp(velocity.z, 0, Time.deltaTime * acceleration);
             }
         }
-        else
+        else // pre calculate air control velocity
         {
             if (inputs.x < -0.1 || inputs.x > 0.1)
             {
@@ -85,23 +88,24 @@ public class PlayerMovements : MonoBehaviour
             }
         }
         
-        inputs.Normalize();
         
+        // move with calculated velocity
         Vector3 move = transform.right * velocity.x + transform.forward * velocity.z;
-        
         controller.Move(move * speed * Time.deltaTime);
         
         
+        // pre calculate jump velocity
         if (Input.GetButton("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
+        // move with calculated jump velocity
         velocity.y += gravity * Time.deltaTime;
-
         controller.Move(velocity * Time.deltaTime);
     }
     
+    // fps mouse control function
     void MouseLook()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;

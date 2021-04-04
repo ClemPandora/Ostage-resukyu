@@ -94,14 +94,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabsItems:
-  - {fileID: 5199625977040210237, guid: ad558bb6dba249a4da6c4ee83f4cbc8c, type: 3}
+  - {fileID: 8048441162477672527, guid: 09905b1584a644b49aa961af2158a868, type: 3}
   - {fileID: 1939567549279183590, guid: 3ed9b3428e9254849beb5f48aee363c5, type: 3}
   - {fileID: 7850243151834811978, guid: 7ddd6c3926cb49646b4cc622a9dfa11d, type: 3}
   - {fileID: 906959902505146880, guid: 1d508522a9959ea4498b7859e38fa45c, type: 3}
-  - {fileID: 8048441162477672527, guid: 09905b1584a644b49aa961af2158a868, type: 3}
+  - {fileID: 5199625977040210237, guid: ad558bb6dba249a4da6c4ee83f4cbc8c, type: 3}
   itemSpawned: 0
   spawnPoint: {fileID: 4030241809026643803}
-  cd: 5
+  cd: 10
 --- !u!1 &4286560466998916065
 GameObject:
   m_ObjectHideFlags: 0
